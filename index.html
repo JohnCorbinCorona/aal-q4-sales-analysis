@@ -1,0 +1,40 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="description" content="AAL fourth-quarter 2020 apparel sales analysis: states, demographics, trends, and business recommendations."><title>AAL | Q4 Sales Analysis</title><link rel="stylesheet" href="style.css"></head><body><header><nav><a href="index.html"><b>AAL</b> / SALES ANALYSIS</a><div><a href="index.html#explore">Explore</a><a href="report.html">Full report</a><a href="index.html#files">Files ↗</a></div></nav></header><main>
+<section class="hero"><div><span class="eyebrow">Applied Data Science with Python · Project 1</span><h1>Where growth<br>takes shape.</h1><p>A fourth-quarter view of AAL’s apparel sales across Australia. Explore the strongest markets, compare customer groups, and turn the findings into focused sales programs.</p><div class="buttons"><a class="button" href="#explore">Explore the sales ↓</a><a class="button secondary" href="report.html">Read full analysis ↗</a></div></div><aside><span class="eyebrow" style="color:#c9dbcb">Leading market / Victoria</span><strong>$105.57M</strong><p>31.02% of the quarter’s revenue came from VIC. Check profitability and store capacity before allocating expansion funds.</p><span class="tag">Q4 2020 · October–December</span></aside></section>
+<div class="metrics"><div class="metric"><span class="muted">Quarter revenue</span><strong>$340.30M</strong></div><div class="metric"><span class="muted">Units sold</span><strong>136,121</strong></div><div class="metric"><span class="muted">Aggregate records</span><strong>7,560</strong></div><div class="metric"><span class="muted">Calendar coverage</span><strong>90 / 92</strong></div></div>
+<div class="notice"><b>A note on coverage.</b> October 31 and December 31 are absent from the file. Missing dates are not treated as zero-sales days. Currency is assumed to be AUD; the CSV does not specify it.</div>
+<section id="explore"><div class="row"><div><span class="eyebrow">01 / Market explorer</span><h2>Seven markets. Four customer groups.</h2></div><label>Demographic <select id="group"><option>All groups</option><option>Kids</option><option>Men</option><option>Women</option><option>Seniors</option></select></label></div><p class="muted">The demographic filter updates the state ranking and its total. All other panels show the complete quarter.</p><div class="grid"><div class="panel"><div class="row"><h3>State revenue ranking</h3><span class="tag" id="subset"></span></div><div id="statebars" class="bars" aria-live="polite"></div><p class="muted">Revenue in AUD millions · Bars begin at zero.</p></div><div class="panel"><h3>Revenue by demographic</h3><div id="groupbars" class="bars"></div><p class="muted">Men lead at $85.75M; Seniors are lowest at $84.04M. The gap is small.</p><hr style="border:0;border-top:1px solid #dce3d9;margin:24px 0"><h3>Time of day</h3><div id="timebars" class="bars"></div><p class="muted">Morning exceeds Evening by 1.89%. Test an evening offer before changing staffing.</p></div></div></section>
+<section id="trends"><div class="row"><div><span class="eyebrow">02 / Reporting periods</span><h2>The quarter in context.</h2></div><label>View <select id="period"><option value="monthly">Monthly</option><option value="daily">Daily</option><option value="weekly">Weekly</option><option value="quarterly">Quarterly</option></select></label></div><div class="panel"><h3 id="trendtitle"></h3><div id="trendchart"></div><p class="muted" id="trendnote"></p><details><summary>View exact period totals</summary><div id="periodtable" class="tablewrap"></div></details></div></section>
+<section><span class="eyebrow">03 / Data preparation & statistics</span><h2>Check the data. Keep the meaning.</h2><div class="grid"><article class="panel"><h3>Clean and normalize</h3><p>Whitespace was trimmed and dates and numbers were parsed. The file has no missing values, duplicate rows, invalid categories, or nonpositive sales and units.</p><p>Min–max normalization places Sales and Unit on a 0–1 scale. Original values are retained for all revenue reports.</p><pre>(value − minimum) / (maximum − minimum)</pre><p class="muted">GroupBy splits records into meaningful groups for aggregation. A separate dataset would require a validated merge.</p></article><article class="panel"><h3>Statistics per aggregate row</h3><div class="tablewrap"><table class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Sales</th>
+      <th>Unit</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>Mean</th>
+      <td>45,013.56</td>
+      <td>18.01</td>
+    </tr>
+    <tr>
+      <th>Median</th>
+      <td>35,000.00</td>
+      <td>14.00</td>
+    </tr>
+    <tr>
+      <th>Mode</th>
+      <td>22,500.00</td>
+      <td>9.00</td>
+    </tr>
+    <tr>
+      <th>Sample std. dev.</th>
+      <td>32,253.51</td>
+      <td>12.90</td>
+    </tr>
+  </tbody>
+</table></div><p class="muted">Sample standard deviation uses ddof=1. These rows are date × time × state × demographic aggregates, rather than individual purchases. Sales equals Unit × 2,500 throughout this file.</p></article><article class="panel wide"><h3>Distributions and potential outliers</h3><img src="distributions.png" alt="Box plots and Seaborn histograms of sales and units show right-skewed distributions and high-value observations"><p class="muted">High values beyond the box-plot whiskers are flagged for investigation, not automatically removed. Seaborn supports clear statistical plots; Matplotlib supplies layout and labels.</p></article></div></section>
+<section><span class="eyebrow">04 / Recommended next steps</span><h2>Start focused. Measure the result.</h2><div class="grid"><article class="panel"><span class="tag">VIC · strongest revenue</span><h3 style="margin-top:18px">Validate expansion capacity.</h3><p>Investigate store productivity, margin, and stock availability in Victoria before committing investment. A high revenue total alone cannot establish the best return.</p></article><article class="panel"><span class="tag">WA · NT · TAS</span><h3 style="margin-top:18px">Pilot local sales programs.</h3><p>Test targeted bundles, loyalty offers, and inventory improvements in lower-revenue markets. Use a comparable untreated group and measure incremental revenue and margin after discounts.</p></article></div><div class="notice"><b>Decision limits.</b> The file has no store counts, costs, customer IDs, campaign exposure, or prior-year comparison. A single quarter cannot establish annual seasonality, causal campaign effects, or a reliable next-year forecast.</div></section>
+<section id="files"><span class="eyebrow">05 / Project files</span><h2>Explore the work behind the numbers.</h2><p>The notebook contains the Python code, Markdown explanations, weekly/monthly/quarterly reports, and the full Seaborn dashboard.</p><div class="buttons"><a class="button" href="Project_1_AAL_Sales_Analysis.ipynb" download>Notebook ↓</a><a class="button secondary" href="AusApparalSales4thQrt2020.csv" download>Source CSV ↓</a><a class="button secondary" href="dashboard.png">Full dashboard ↗</a><a class="button secondary" href="report.html">Full report ↗</a><button class="secondary" id="print">Print / Save PDF</button></div></section>
+<footer>AAL · Sales Analysis / Q4 2020<br>Source: AusApparalSales4thQrt2020.csv · Applied Data Science with Python · Project 1</footer></main><script src="data.js"></script><script src="app.js"></script></body></html>
