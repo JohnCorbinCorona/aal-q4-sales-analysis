@@ -3,3 +3,4 @@ numpy>=1.23
 matplotlib>=3.6
 seaborn>=0.12
 jupyterlab>=3
+streamlit>=1.40,<2
