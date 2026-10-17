@@ -27,8 +27,8 @@ def standalone(filename):
         uri = 'data:image/png;base64,' + encoded
         document = document.replace(f'src="{image}"', f'src="{uri}"')
         document = document.replace(f'href="{image}"', f'href="{uri}" target="_blank"')
-    document = document.replace('href="report.html"', 'href="?view=report" target="_top"')
-    document = document.replace('href="index.html"', 'href="?view=site" target="_top"')
+    document = document.replace('href="report.html"', 'href="https://johncorbin-aal-sales.streamlit.app/?view=report" target="_top"')
+    document = document.replace('href="index.html"', 'href="https://johncorbin-aal-sales.streamlit.app/?view=site" target="_top"')
     document = document.replace('href="index.html#', 'href="#')
     # Native download controls below the website work reliably on hosted browsers.
     for filename in ['Project_1_AAL_Sales_Analysis.ipynb', 'AusApparalSales4thQrt2020.csv']:
@@ -52,5 +52,6 @@ else:
         ("Download full report", 'report.html', 'text/html'),
         ("Download dashboard", 'dashboard.png', 'image/png'),
     ]:
-        st.download_button(label, (ROOT / filename).read_bytes(), file_name=filename, mime=mime)
-    st.caption("The HTML report uses style.css for its formatting; the complete website source is in the GitHub repository.")
+        payload = standalone('report.html').encode() if filename == 'report.html' else (ROOT / filename).read_bytes()
+        st.download_button(label, payload, file_name=filename, mime=mime)
+    st.caption("The complete website source is also available in the GitHub repository.")

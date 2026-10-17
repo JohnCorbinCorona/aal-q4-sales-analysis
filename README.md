@@ -2,6 +2,8 @@
 
 Applied Data Science with Python — Project 1.
 
+Live website: https://johncorbin-aal-sales.streamlit.app/
+
 ## Explore
 - Open `index.html` for the interactive website (keep style.css, data.js, and app.js beside it).
 - Open `report.html` for the complete notebook report with verified outputs and expandable code.
